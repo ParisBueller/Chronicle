@@ -7,7 +7,7 @@ const User = mongoose.model('users');
 
 passport.use(
     new GoogleStrategy({
-        clientId: keys.googleClientID,
+        clientID: keys.googleClientID,
         clientSecret: keys.googleClientSecret,
         callbackURL: '/auth/google/callback',
         userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo",
