@@ -1,5 +1,6 @@
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
+const LocalStrategy = require('passport-local').Strategy;
 const mongoose = require('mongoose');
 const keys = require('../config/keys');
 
@@ -25,12 +26,27 @@ passport.use(
         proxy: true
     },
     async (acessToken, refreshToken, profile, done) => {
-        const existingUser = await User.findOne({ googleId: profile.id })
-        if(existingUser) {
-            return done(null, existingUser);
+        const googleUser = await User.findOne({ googleId: profile.id })
+        if(googleUser) {
+            return done(null, googleUser);
         }
         const user = await new User({ googleId: profile.id }).save()
         done(null, user);
         }   
+    )
+);
+
+passport.use(
+    new LocalStrategy(
+        async (username, password, done) => {
+             await User.findOne({ username: username }, 
+                (err, user) => {
+                if (err) { return done(err); console.log('error authenticating', err)}
+                if (!user) { return done(null, false); (console.log('user not found'))}
+                if (!user.verifyPassword(password)) { return done(null, false); (console.log('password is invalid')) }
+                return done(null, user, console.log('authenticated', user));
+                
+            });     
+        }
     )
 );

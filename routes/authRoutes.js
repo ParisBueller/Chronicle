@@ -15,4 +15,12 @@ module.exports = app => {
             res.redirect('/projects');
         }
     );
+
+    app.post(
+        '/login',
+        passport.authenticate('local', { failureRedirect: '/login'}),
+        (req, res) => {
+            res.redirect('/Projects');
+        }       
+    );
 }
