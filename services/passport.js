@@ -1,6 +1,6 @@
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
-const LocalStrategy = require('passport-local').Strategy;
+const GitHubStrategy = require('passport-github2').Strategy;
 const mongoose = require('mongoose');
 const keys = require('../config/keys');
 
@@ -11,7 +11,7 @@ passport.serializeUser((user, done) => {
 });
 
 passport.deserializeUser((id, done) => {
-    User.findById(id)
+    User.findById(mongoose.Types.ObjectId(id))
         .then(user => {
             done(null, user);
         })
@@ -37,16 +37,20 @@ passport.use(
 );
 
 passport.use(
-    new LocalStrategy(
-        async (username, password, done) => {
-             await User.findOne({ username: username }, 
-                (err, user) => {
-                if (err) { return done(err); console.log('error authenticating', err)}
-                if (!user) { return done(null, false); (console.log('user not found'))}
-                if (!user.verifyPassword(password)) { return done(null, false); (console.log('password is invalid')) }
-                return done(null, user, console.log('authenticated', user));
-                
-            });     
+    new GitHubStrategy({
+        clientID: keys.githubClientID,
+        clientSecret: keys.githubClientSecret,
+        callbackURL: '/auth/github/callback'
+    },
+    async (accessToken, refreshToken, profile, done) => {
+            const githubUser = await User.findOne({ githubId: profile.id })
+            if(githubUser) {
+                return done(null, githubUser);
+            }
+            const user = await new User({ githubId: profile.id}).save()
+            done(null, user);             
         }
     )
 );
+
+

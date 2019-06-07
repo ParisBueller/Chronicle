@@ -16,11 +16,19 @@ module.exports = app => {
         }
     );
 
-    app.post(
-        '/login',
-        passport.authenticate('local', { failureRedirect: '/login'}),
-        (req, res) => {
-            res.redirect('/Projects');
-        }       
+    app.get(
+        '/auth/github',
+        passport.authenticate('github', {
+            scope: [ 'user:email']
+        })
     );
+
+    app.get(
+        '/auth/github/callback',
+        passport.authenticate('github'),
+        (req, res) => {
+            res.redirect('/projects')
+        }
+    );
+    
 }
