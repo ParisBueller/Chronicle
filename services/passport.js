@@ -17,6 +17,7 @@ passport.deserializeUser((id, done) => {
         })
 });
 
+
 passport.use(
     new GoogleStrategy({
         clientID: keys.googleClientID,
@@ -25,14 +26,21 @@ passport.use(
         userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo",
         proxy: true
     },
-    async (acessToken, refreshToken, profile, done) => {
-        const googleUser = await User.findOne({ googleId: profile.id })
-        if(googleUser) {
-            return done(null, googleUser);
-        }
-        const user = await new User({ googleId: profile.id }).save()
-        done(null, user);
-        }   
+    async (acessToken, refreshToken , profile , done) => {
+        console.log(profile.emails[0].value);
+        const googleUser = await User.findOne({ googleId: profile.id});
+        const existingUser = await User.findOne({ email: profile.emails[0].value})
+        if (googleUser) {
+            return done(null, googleUser)
+            } else if( existingUser ) {
+                await User.findOneAndUpdate({ googleId: profile.id})
+                return done(null, existingUser);
+            } else {
+                const newGoogleUser = await new User({googleId: profile.id, email: profile.emails[0].value }).save()
+                return done(null, newGoogleUser);
+            }
+
+        }           
     )
 );
 
@@ -42,15 +50,27 @@ passport.use(
         clientSecret: keys.githubClientSecret,
         callbackURL: '/auth/github/callback'
     },
-    async (accessToken, refreshToken, profile, done) => {
-            const githubUser = await User.findOne({ githubId: profile.id })
+    async (accessToken, refreshToken ,profile, done) => {          
+        console.log(profile.emails[0].value);
+        try{
+            const githubUser = await User.findOne({ githubId: profile.id});
+            const existingUser = await User.findOne({email: profile.emails[0].value});
             if(githubUser) {
                 return done(null, githubUser);
-            }
-            const user = await new User({ githubId: profile.id}).save()
-            done(null, user);             
-        }
+            } else if(existingUser) {
+                await User.findOneAndUpdate({githubId: profile.id});
+                return done(null, existingUser);
+            } else {
+                const newGithubUser = await new User({ githubId: profile.id, email: profile.emails[0].value }).save()
+                return done(null, newGithubUser);
+            } 
+            }catch(err) {
+                console.log(err);
+                return null;
+            }         
+        }        
     )
 );
+
 
 
