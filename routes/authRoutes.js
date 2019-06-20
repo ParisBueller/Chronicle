@@ -14,14 +14,14 @@ module.exports = app => {
         '/auth/google/callback',
         passport.authenticate('google'),
         (req, res) => {
-            res.redirect('/projects');
+            res.redirect('/dashboard');
         }
     );
 
     app.get(
         '/auth/github',
         passport.authenticate('github', {
-            scope: [ 'user:email']
+            scope: [ 'read:user','user:email']
         })
     );
 
@@ -29,7 +29,7 @@ module.exports = app => {
         '/auth/github/callback',
         passport.authenticate('github'),
         (req, res) => {
-            res.redirect('/projects')
+            res.redirect('/dashboard')
         }
     );
     

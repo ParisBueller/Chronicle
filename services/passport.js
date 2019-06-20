@@ -28,15 +28,18 @@ passport.use(
     },
     async (acessToken, refreshToken , profile , done) => {
         console.log(profile.emails[0].value);
+        console.log(profile.name);
+        const name = profile.name.givenName + " " + profile.name.familyName;
+        console.log(name);
         const googleUser = await User.findOne({ googleId: profile.id});
-        const existingUser = await User.findOne({ email: profile.emails[0].value})
+        const existingUser = await User.findOne({ email: profile.emails[0].value, name:name});
         if (googleUser) {
             return done(null, googleUser)
             } else if( existingUser ) {
                 await User.findOneAndUpdate({ googleId: profile.id})
                 return done(null, existingUser);
             } else {
-                const newGoogleUser = await new User({googleId: profile.id, email: profile.emails[0].value }).save()
+                const newGoogleUser = await new User({googleId: profile.id, email: profile.emails[0].value, name: name }).save()
                 return done(null, newGoogleUser);
             }
 
@@ -52,16 +55,17 @@ passport.use(
     },
     async (accessToken, refreshToken ,profile, done) => {          
         console.log(profile.emails[0].value);
+        console.log(profile.displayName);
         try{
             const githubUser = await User.findOne({ githubId: profile.id});
-            const existingUser = await User.findOne({email: profile.emails[0].value});
+            const existingUser = await User.findOne({email: profile.emails[0].value, name: profile.displayName});
             if(githubUser) {
                 return done(null, githubUser);
             } else if(existingUser) {
                 await User.findOneAndUpdate({githubId: profile.id});
                 return done(null, existingUser);
             } else {
-                const newGithubUser = await new User({ githubId: profile.id, email: profile.emails[0].value }).save()
+                const newGithubUser = await new User({ githubId: profile.id, email: profile.emails[0].value, name: profile.displayName }).save()
                 return done(null, newGithubUser);
             } 
             }catch(err) {
