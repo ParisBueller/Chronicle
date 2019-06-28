@@ -110,5 +110,9 @@ module.exports = app => {
         req.logout();
         req.redirect('/users/login');
     });
+
+    app.get('/api/current_user', (req, res) => {
+        res.send(req.user);
+    });
     
 }
