@@ -3,6 +3,7 @@ import { BrowserRouter, Route } from 'react-router-dom';
 import { connect } from 'react-redux'; 
 
 import * as actions from '../actions';
+import Login from './Login';
 
 class App extends React.Component {
     componentDidMount() {
@@ -12,7 +13,11 @@ class App extends React.Component {
     render() {
         return (
             <div className="container">
-
+                <BrowserRouter>
+                    <div className="container">
+                        <Route exact path="/landing" component={Login} />
+                    </div>
+                </BrowserRouter>
             </div>
         );
     }

@@ -38,7 +38,7 @@ module.exports = app => {
     );
 
     app.get('/login', (req, res) => {
- 
+        res.send();
     })
 
     app.get('/register', (req, res) => {
@@ -111,7 +111,7 @@ module.exports = app => {
         req.redirect('/users/login');
     });
 
-    app.get('/api/current_user', (req, res) => {
+    app.get('/current_user', (req, res) => {
         res.send(req.user);
     });
     

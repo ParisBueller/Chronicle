@@ -6,6 +6,6 @@ module.exports = function(app) {
         '/auth/github', 
         '/register', 
         '/login',
-        '/api/*'],
+        '/current_user'],
         { target: 'http://localhost:5000'}));
 }
