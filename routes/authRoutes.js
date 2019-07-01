@@ -37,15 +37,8 @@ module.exports = app => {
         }
     );
 
-    app.get('/login', (req, res) => {
-        res.send();
-    })
-
-    app.get('/register', (req, res) => {
-        
-    })
     //Register New User
-    app.post('/register', (req, res) => {
+    app.post('/api/register', (req, res) => {
         const { name, email, password, password2 } = req.body;
         let errors = [];
 
@@ -89,7 +82,7 @@ module.exports = app => {
                     newUser.password = hash;
                     newUser.save()
                         .then( user => {
-                            res.redirect('/users/login');
+                            res.redirect('/api/login');
                         })
                         .catch(err => console.log(err));
                     })
@@ -98,20 +91,20 @@ module.exports = app => {
         }
     });
 
-    app.post('/login', (req, res, next) => {
+    app.post('/api/login', (req, res, next) => {
         passport.authenticate('local', {
             successRedirect: '/dashboard',
-            failureRedirect: '/users/login',
+            failureRedirect: '/api/login',
             failureFlash: true
         })(req,res,next);
     });
 
-    app.get('/logout', (req, res) => {
+    app.get('/api/logout', (req, res) => {
         req.logout();
-        req.redirect('/users/login');
+        req.redirect('/api/login');
     });
 
-    app.get('/current_user', (req, res) => {
+    app.get('/api/current_user', (req, res) => {
         res.send(req.user);
     });
     

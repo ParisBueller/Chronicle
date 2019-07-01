@@ -7,7 +7,7 @@ class Login extends React.Component {
                 <div className="col-md-6 m-auto">
                     <div className="card card-body">
                         <h1 className="text-center mb-3">Chronicle</h1>
-                        <form>
+                        <form className="mb-3">
                             <div className="form-group">
                                 <label>Email</label>
                                 <input
@@ -30,7 +30,9 @@ class Login extends React.Component {
                             </div>
                             <button type="submit" className="btn btn-primary btn-block">Login</button>
                         </form>
-                        <p className="lead mt-4">
+                        <a className="btn btn-secondary btn-block" href="/auth/github"><i className="fab fa-github"></i> Login with Github</a>
+                        <a className="btn btn-danger btn-block" href="/auth/google"><i className="fab fa-google"> Login with Google</i></a>
+                        <p className="text-center lead mt-4">
                             No account? <a href="/register">Register</a>
                         </p>
                     </div>
