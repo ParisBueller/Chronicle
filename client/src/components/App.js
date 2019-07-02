@@ -3,7 +3,7 @@ import { BrowserRouter, Route } from 'react-router-dom';
 import { connect } from 'react-redux'; 
 
 import * as actions from '../actions';
-import Login from './Login';
+import Login  from './Login';
 
 class App extends React.Component {
     componentDidMount() {
