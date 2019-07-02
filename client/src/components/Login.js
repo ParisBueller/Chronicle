@@ -1,9 +1,9 @@
 import React from 'react';
-import { reduxForm, Field } from 'redux-form';
 import { Link } from 'react-router-dom';
 
-class Login extends React.Component {
-    render() {
+import * as actions from '../actions';
+
+const Login = ({ formValues, loginUser }) => {
         return (
             <div className="row mt-5">
                 <div className="col-md-6 m-auto">
@@ -13,6 +13,7 @@ class Login extends React.Component {
                             <div className="form-group">
                                 <label>Email</label>
                                 <input
+                                    key="email"
                                     className="form-control"
                                     type="email"
                                     name="email"
@@ -22,26 +23,31 @@ class Login extends React.Component {
                             <div className="form-group">
                                 <label>Password</label>
                                 <input
+                                    key="password"
                                     className="form-control"
                                     type="password"
                                     name="password"
                                     placeholder="Password"
                                 />
                             </div>
-                            <button 
-                                type="submit" 
-                                className="btn btn-primary btn-block">Login</button>
+                            <button
+                                onClick={() => loginUser(formValues)} 
+                                type="submit"
+                                className="btn btn-primary btn-block">Log In</button>
                         </form>
-                        <a className="btn btn-secondary btn-block" href="/auth/github"><i className="fab fa-github"></i> Login with Github</a>
-                        <a className="btn btn-danger btn-block" href="/auth/google"><i className="fab fa-google"> Login with Google</i></a>
+                        <a className="btn btn-secondary btn-block" href="/auth/github"><i className="fab fa-github"></i> Log In with Github</a>
+                        <a className="btn btn-danger btn-block" href="/auth/google"><i className="fab fa-google"> Log In with Google</i></a>
                         <p className="text-center lead mt-4">
-                            No account? <a href="/register">Register</a>
+                            No account? <Link href="/register">Register</Link>
                         </p>
                     </div>
                 </div>
             </div>
         )
-    }
-};
+    };
 
-export default Login;
+    // function mapStateToProps(state) {
+    //     return { formValues: state.form.login.values};
+    // }
+
+export default connect(actions)(Login);
