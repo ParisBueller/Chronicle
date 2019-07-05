@@ -8,8 +8,8 @@ export const fetchUser = () => async dispatch => {
     dispatch({ type: FETCH_USER, payload: res.data });
 };
 
-export const loginUser = () => async dispatch => {
-    const res = await axios.post('/api/login', values)
+// export const loginUser = () => async dispatch => {
+//     const res = await axios.post('/api/login', values)
 
-    dispatch({ type: LOGIN_USER, payload: res.data });
-};
+//     dispatch({ type: LOGIN_USER, payload: res.data });
+// };
