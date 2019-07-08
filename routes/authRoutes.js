@@ -1,7 +1,8 @@
 const passport = require('passport');
 const bcrypt = require('bcryptjs');
+const mongoose = require('mongoose');
 
-const User = require('../models/User');
+const User = mongoose.model('users');
 
 module.exports = app => {
     //Google Auth

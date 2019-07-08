@@ -9,12 +9,11 @@ const renderField = ({ input, label, type, meta: { touched, error} }) => (
         <label>{label}</label>
         <div>
             <input className="form-control" {...input} placeholder={label} type={type} />
-            {touched && error && <span>{error}</span>}
         </div>
     </div>
 )
 
-const Login = ({ error, handleSubmit, submitting }) => {
+const Login = ({ handleSubmit, submitting }) => {
         return (
             <div className="row mt-5">
                 <div className="col-md-6 m-auto">
@@ -23,7 +22,6 @@ const Login = ({ error, handleSubmit, submitting }) => {
                         <form onSubmit={handleSubmit(validateLogin)} className="mb-3">
                             <Field name="email" type="text" component={renderField} label="Email"/>
                             <Field name="password" type="password" component={renderField} label="Password"/>
-                            {error && <strong>{error}</strong>}
                             <button disabled={submitting} type="submit" className="btn btn-primary btn-block">Log In</button>
                         </form>
                         <a className="btn btn-secondary btn-block" href="/auth/github"><i className="fab fa-github"></i> Log In with Github</a>
@@ -36,6 +34,7 @@ const Login = ({ error, handleSubmit, submitting }) => {
             </div>
         )
     };
+
 
 export default reduxForm({
     form: 'loginForm'

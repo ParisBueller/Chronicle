@@ -1,5 +1,6 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form'; 
+import { withRouter } from 'react-router-dom';
 
 import validateRegister from '../utils/validateRegister';
 
@@ -37,4 +38,4 @@ const Register = ({error, handleSubmit, submitting}) => {
 
 export default reduxForm({
     form:'registerForm'
-})(Register);
+})(withRouter(Register));
