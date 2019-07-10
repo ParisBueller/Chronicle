@@ -44,15 +44,15 @@ module.exports = app => {
         let errors = [];
 
         if (!name || !email || !password || !password2) {
-            errors.push({ msg: 'Please fill in all fields'});
+            errors.push({ blankFields: 'Please fill in all fields'});
             console.log(errors);
         }
         if (password !== password2) {
-            errors.push({ msg: 'Passwords do not match'});
+            errors.push({ nonMatchPass: 'Passwords do not match'});
             console.log(errors);
         }
         if(password.length < 6) {
-            errors.push({msg: 'Password must be at least 6 characters'})
+            errors.push({passTooShort: 'Password must be at least 6 characters'})
             console.log(errors);
         }
         if (errors.length > 0) {
@@ -64,45 +64,48 @@ module.exports = app => {
                 password2
             });
         } else {
-            const existingUser = User.findOne({ email: email});
-            if (existingUser) {
-                errors.push({ msg: 'Email is already registered'});
-                res.send({
-                    errors,
-                    name,
-                    email,
-                    password,
-                    password2
-                });
-            } else {
-                const newUser = new User ({name, email, password});
+            // const existingUser = 
+            User.findOne({ email: email})
+                .then( user => {
+                    if(user) {
+                        errors.push({ existingUser: 'Email is already registered'});
+                        res.send({
+                            errors,
+                            name,
+                            email,
+                            password,
+                            password2
+                        });
+                    } else {
+                        const newUser = new User({name, email, password});
 
-                bcrypt.genSalt(10, (err, salt) =>
-                bcrypt.hash(newUser.password, salt, (err, hash) => {
-                    if (err) throw err;
-                    newUser.password = hash;
-                    newUser.save()
-                        .then( user => {
-                            res.redirect('/api/login');
-                        })
-                        .catch(err => console.log(err));
-                    })
-                )
+                        bcrypt.genSalt(10, (err, salt) =>
+                        bcrypt.hash(newUser.password, salt, (err, hash) => {
+                            if (err) throw err;
+                            newUser.password = hash;
+                            newUser.save()
+                                .then( user => {
+                                    res.send(user)
+                                    res.redirect('/login')
+                                })
+                                .catch(err => console.log(err));
+                            }))
+                    }
+                });
             }
-        }
     });
 
     app.post('/api/login', (req, res, next) => {
         passport.authenticate('local', {
             successRedirect: '/dashboard',
-            failureRedirect: '/api/login',
+            failureRedirect: '/login',
             failureFlash: true
         })(req,res,next);
     });
 
     app.get('/api/logout', (req, res) => {
         req.logout();
-        req.redirect('/api/login');
+        req.redirect('/login');
     });
 
     app.get('/api/current_user', (req, res) => {

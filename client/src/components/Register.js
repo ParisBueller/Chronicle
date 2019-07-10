@@ -1,6 +1,5 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form'; 
-import { withRouter } from 'react-router-dom';
 
 import validateRegister from '../utils/validateRegister';
 
@@ -9,7 +8,7 @@ const renderField = ({ input, label, type, meta: { touched, error} }) => (
         <label>{label}</label>
         <div>
             <input className="form-control" {...input} placeholder={label} type={type} />
-            {touched && error && <span>{error}</span>}
+            {touched && error && <div className="alert alert-danger text-center mt-1" role="alert">{JSON.stringify(error)}</div>}
         </div>
     </div>
 )
@@ -28,6 +27,7 @@ const Register = ({error, handleSubmit, submitting}) => {
                         <Field name="email" type="email" label="Email" component={renderField} />
                         <Field name="password" type="password" label="Password" component={renderField} />
                         <Field name="password2" type="password" label="Password" component={renderField} />
+                        {error && <div className="alert alert-danger text-center mb-2" role="alert">{JSON.stringify(error)}</div>}
                         <button disabled={submitting} type="submit" className="btn btn-primary btn-block">Register</button>
                     </form>
                 </div>
@@ -38,4 +38,4 @@ const Register = ({error, handleSubmit, submitting}) => {
 
 export default reduxForm({
     form:'registerForm'
-})(withRouter(Register));
+})(Register);
