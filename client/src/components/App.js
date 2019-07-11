@@ -1,10 +1,12 @@
 import React from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
 import { connect } from 'react-redux'; 
-
+import { createBrowserHistory } from "history";
 import * as actions from '../actions';
 import Login  from './Login';
 import Register from './Register';
+
+const history = createBrowserHistory()
 
 class App extends React.Component {
     componentDidMount() {
@@ -14,7 +16,7 @@ class App extends React.Component {
     render() {
         return (
             <div className="container">
-                <BrowserRouter>
+                <BrowserRouter history={history}>
                     <div className="container">
                         <Route exact path="/login" component={Login} />
                         <Route exact path="/register" component={Register}/>

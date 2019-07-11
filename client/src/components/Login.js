@@ -27,7 +27,7 @@ const Login = ({ handleSubmit, submitting }) => {
                         <a className="btn btn-secondary btn-block" href="/auth/github"><i className="fab fa-github"></i> Log In with Github</a>
                         <a className="btn btn-danger btn-block" href="/auth/google"><i className="fab fa-google"> Log In with Google</i></a>
                         <p className="text-center lead mt-4">
-                            No account? <Link href="/register">Register</Link>
+                            No account? <Link to="/register">Register</Link>
                         </p>
                     </div>
                 </div>

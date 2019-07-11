@@ -44,15 +44,15 @@ module.exports = app => {
         let errors = [];
 
         if (!name || !email || !password || !password2) {
-            errors.push({ blankFields: 'Please fill in all fields'});
+            errors.push({ msg: 'Please fill in all fields'});
             console.log(errors);
         }
         if (password !== password2) {
-            errors.push({ nonMatchPass: 'Passwords do not match'});
+            errors.push({ msg: 'Passwords do not match'});
             console.log(errors);
         }
         if(password.length < 6) {
-            errors.push({passTooShort: 'Password must be at least 6 characters'})
+            errors.push({msg: 'Password must be at least 6 characters'})
             console.log(errors);
         }
         if (errors.length > 0) {
@@ -68,7 +68,7 @@ module.exports = app => {
             User.findOne({ email: email})
                 .then( user => {
                     if(user) {
-                        errors.push({ existingUser: 'Email is already registered'});
+                        errors.push({ msg: 'Email is already registered'});
                         res.send({
                             errors,
                             name,

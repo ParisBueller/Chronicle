@@ -1,4 +1,3 @@
-import React from 'react';
 import axios from 'axios';
 import { SubmissionError } from 'redux-form';
 
@@ -8,33 +7,12 @@ export default values => {
     return axios.post('/api/register', values)
     .then(res => {
         console.log(res.data);
-        if (res.data.errors === 0) {
-            window.alert(<div className="alert alert-success">User registered Successfully!</div>)
-            res.redirect('/login');
-        }
-        else if (res.data.errors[0].existingUser) {
+        if (res.data.errors) {
             throw new SubmissionError({
-                email: res.data.errors[0].existingUser,
-                _error: 'Login Failed'
+                _error: res.data.errors[0].msg
             })
-            }
-        })
-        // if (res.data.errors[0].blankFields) {
-        //     throw new SubmissionError({
-        //         _error: res.data.errors[0].blankFields
-        //     })
-        // }
-        // if (res.data.errors[0].nonMatchPass) {
-        //     throw new SubmissionError({
-        //         password: res.data.errors[0].nonMatchPass,
-        //         _error: 'Login Failed'
-        //     })
-        // }
-        // if (res.data.errors[0].passTooShort) {
-        //     throw new SubmissionError({
-        //         password: res.data.errors[0].passTooShort,
-        //         _error: 'Login Failed'
-        //     })
-        // }
-
+        } else if (!res.data.errors) {
+            window.alert('You are Now Registered!');
+        }
+    })
 }

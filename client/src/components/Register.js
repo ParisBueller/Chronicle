@@ -1,5 +1,6 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form'; 
+import { withRouter } from 'react-router-dom';
 
 import validateRegister from '../utils/validateRegister';
 
@@ -13,7 +14,7 @@ const renderField = ({ input, label, type, meta: { touched, error} }) => (
     </div>
 )
 
-const Register = ({error, handleSubmit, submitting}) => {
+const Register = ({error, handleSubmit, submitting, history}) => {
     return(
         <div className="row mt-5">
             <div className="col-md-6 m-auto">
@@ -37,5 +38,8 @@ const Register = ({error, handleSubmit, submitting}) => {
 }
 
 export default reduxForm({
-    form:'registerForm'
-})(Register);
+    form:'registerForm',
+    onSubmitSuccess: props => {
+        props.history.push('/login');
+    }
+})(withRouter(Register));
