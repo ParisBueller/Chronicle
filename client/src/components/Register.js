@@ -1,8 +1,7 @@
 import React from 'react';
-import { Field, reduxForm } from 'redux-form'; 
+import { Field, reduxForm, SubmissionError } from 'redux-form'; 
 import { withRouter } from 'react-router-dom';
-
-import validateRegister from '../utils/validateRegister';
+import axios from 'axios';
 
 const renderField = ({ input, label, type, meta: { touched, error} }) => (
     <div className="form-group">
@@ -15,6 +14,20 @@ const renderField = ({ input, label, type, meta: { touched, error} }) => (
 )
 
 const Register = ({error, handleSubmit, submitting, history}) => {
+    const validateRegister = values => {
+        console.log(values);
+        return axios.post('/api/register', values)
+        .then(res => {
+            console.log(res.data);
+            if (res.data.errors) {
+                throw new SubmissionError({
+                    _error: res.data.errors[0].msg
+                })
+            } else if (!res.data.errors) {
+                history.push('/login');
+            }
+        })
+    }
     return(
         <div className="row mt-5">
             <div className="col-md-6 m-auto">
@@ -37,9 +50,6 @@ const Register = ({error, handleSubmit, submitting, history}) => {
     );
 }
 
-export default reduxForm({
+export default withRouter(reduxForm({
     form:'registerForm',
-    onSubmitSuccess: props => {
-        props.history.push('/login');
-    }
-})(withRouter(Register));
+})(Register));

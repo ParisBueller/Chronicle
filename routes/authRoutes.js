@@ -96,11 +96,9 @@ module.exports = app => {
     });
 
     app.post('/api/login', (req, res, next) => {
-        passport.authenticate('local', {
-            successRedirect: '/dashboard',
-            failureRedirect: '/login',
-            failureFlash: true
-        })(req,res,next);
+        passport.authenticate('local', 
+            res.send(req.errors)
+        )(req,res,next);
     });
 
     app.get('/api/logout', (req, res) => {

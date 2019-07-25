@@ -1,19 +1,34 @@
 import React from 'react';
-import { Field, reduxForm } from 'redux-form';
-import { Link } from 'react-router-dom';
+import { Field, reduxForm, SubmissionError } from 'redux-form';
+import { Link, withRouter } from 'react-router-dom';
+import axios from 'axios';
 
-import validateLogin from '../utils/validateLogin';
 
 const renderField = ({ input, label, type, meta: { touched, error} }) => (
     <div className="form-group">
         <label>{label}</label>
         <div>
             <input className="form-control" {...input} placeholder={label} type={type} />
+            {touched && error && <div className="alert alert-danger text-center mt-1" role="alert">{JSON.stringify(error)}</div>}
         </div>
     </div>
 )
 
-const Login = ({ handleSubmit, submitting }) => {
+const Login = ({ error,handleSubmit, submitting, history }) => {
+    const validateLogin = values => {
+        console.log(values);
+        return axios.post('/api/login', values)
+        .then(res => {
+            console.log(res.data);
+            if (res.data.errors) {
+                throw new SubmissionError({
+                    _error: res.data.errors[0].msg
+                })
+            } else if (!res.data.errors) {
+                history.push('/dashboard');
+            }
+        })
+    }
         return (
             <div className="row mt-5">
                 <div className="col-md-6 m-auto">
@@ -22,6 +37,7 @@ const Login = ({ handleSubmit, submitting }) => {
                         <form onSubmit={handleSubmit(validateLogin)} className="mb-3">
                             <Field name="email" type="text" component={renderField} label="Email"/>
                             <Field name="password" type="password" component={renderField} label="Password"/>
+                            {error && <div className="alert alert-danger text-center mb-2" role="alert">{JSON.stringify(error)}</div>}
                             <button disabled={submitting} type="submit" className="btn btn-primary btn-block">Log In</button>
                         </form>
                         <a className="btn btn-secondary btn-block" href="/auth/github"><i className="fab fa-github"></i> Log In with Github</a>
@@ -36,6 +52,6 @@ const Login = ({ handleSubmit, submitting }) => {
     };
 
 
-export default reduxForm({
+export default withRouter(reduxForm({
     form: 'loginForm'
-})(Login);
+})(Login));

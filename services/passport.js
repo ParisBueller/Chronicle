@@ -83,8 +83,10 @@ passport.use(
         usernameField: 'email'
     },
     async (email, password, done) => {
+        let errors = [];
         const existingUser = await User.findOne({ email: email });
         if(!existingUser) {
+            errors.push({msg: 'User does not exist'});
             return done(null, false)
         }
 
@@ -94,7 +96,7 @@ passport.use(
             if(isMatch) {
                 return done(null, existingUser);
             } else {
-                console.log('Password is incorrect');
+                errors.push({msg: 'Password is incorrect'});
                 return done(null, false);                
                 }
             })
