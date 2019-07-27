@@ -3,7 +3,6 @@ import { Field, reduxForm, SubmissionError } from 'redux-form';
 import { Link, withRouter } from 'react-router-dom';
 import axios from 'axios';
 
-
 const renderField = ({ input, label, type, meta: { touched, error} }) => (
     <div className="form-group">
         <label>{label}</label>
@@ -20,11 +19,11 @@ const Login = ({ error,handleSubmit, submitting, history }) => {
         return axios.post('/api/login', values)
         .then(res => {
             console.log(res.data);
-            if (res.data.errors) {
+            if (res.data.success === false) {
                 throw new SubmissionError({
-                    _error: res.data.errors[0].msg
+                    _error: res.data.message
                 })
-            } else if (!res.data.errors) {
+            } else if (res.data.success === true) {
                 history.push('/dashboard');
             }
         })

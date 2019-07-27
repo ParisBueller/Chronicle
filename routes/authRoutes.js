@@ -96,9 +96,21 @@ module.exports = app => {
     });
 
     app.post('/api/login', (req, res, next) => {
-        passport.authenticate('local', 
-            res.send(req.errors)
-        )(req,res,next);
+        passport.authenticate('local', function(err, user, info) {
+            if (err) {
+                return next(err);
+            }
+            if (!user) {
+                return res.send({ success: false, message: 'email or password is incorrect'});
+            }
+
+            req.login(user, loginErr => {
+                if (loginErr) {
+                    return next(loginErr);
+                }
+                return res.send({ success: true, message: 'authentication succeeded!'});
+            });
+        })(req, res, next); 
     });
 
     app.get('/api/logout', (req, res) => {

@@ -6,7 +6,7 @@ import * as actions from '../actions';
 import Login  from './Login';
 import Register from './Register';
 import Dashboard from './Dashboard';
-
+import Navbar from './Navbar';
 
 
 class App extends React.Component {
@@ -19,6 +19,7 @@ class App extends React.Component {
             <div className="container">
                 <BrowserRouter>
                     <div className="container">
+                        <Navbar />
                         <Route exact path="/login" component={Login} />
                         <Route exact path="/register" component={Register}/>
                         <Route exact path="/dashboard" component={Dashboard}/>
