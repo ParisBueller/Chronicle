@@ -3,7 +3,9 @@ const { Schema } = mongoose;
 
 const projectSchema = new Schema({
     name: String,
-    _user: { type: Schema.Types.ObjectId, ref: 'User'}
+    description: String,
+    _user: { type: Schema.Types.ObjectId, ref: 'User'},
+    dateCreated: Date
 })
 
 mongoose.model('project', projectSchema);
