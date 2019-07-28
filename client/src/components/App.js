@@ -7,6 +7,7 @@ import Login  from './Login';
 import Register from './Register';
 import Dashboard from './Dashboard';
 import Navbar from './Navbar';
+import ProjectNew from './projects/ProjectNew';
 
 
 class App extends React.Component {
@@ -23,6 +24,7 @@ class App extends React.Component {
                         <Route exact path="/login" component={Login} />
                         <Route exact path="/register" component={Register}/>
                         <Route exact path="/dashboard" component={Dashboard}/>
+                        <Route path="/projects/new" component={ProjectNew}/>
                     </div>
                 </BrowserRouter>
             </div>

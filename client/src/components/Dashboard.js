@@ -20,7 +20,8 @@ class Dashboard extends React.Component {
                             <div className="card-body">
                                 <h5 className="card-title">{project.name}</h5>
                                 <p className="card-text">{project.description}</p>
-                                <p className="card-text"><small className="text-muted">Created on {project.dateCreated}</small></p>
+                                <p className="card-text"><a className="text-muted" href={project.repo}></a></p>
+                                <p className="card-text"><small className="text-muted">Created on {new Date(project.dateCreated).toLocaleDateString()}</small></p>                           
                             </div>
                         </div>
                     </div>
