@@ -29,7 +29,7 @@ class ProjectForm extends React.Component {
                         <Link to="/dashboard" type="button" className="btn btn-danger">
                             Cancel
                         </Link>
-                        <button type="button" className="float-right btn btn-success"><i className="fas fa-check"></i></button>
+                        <button type="submit" className="float-right btn btn-success"><i className="fas fa-check"></i></button>
                 </form>
             </div>
         );

@@ -21,8 +21,8 @@ const ProjectFormReview = ({ onCancel, formValues, submitProject, history }) => 
             <h5>Please confirm your entries</h5>
             {reviewFields}
             <button type="button" className="btn btn-warning" onClick={onCancel}>Back</button>
-            <button onClick={() => submitProject(formValues, history)}type="button" className="btn btn-success">
-                Submit Project
+            <button onClick={() => submitProject(formValues, history)} className="btn btn-success float-right">
+                Submit
             </button>
         </div>
     );

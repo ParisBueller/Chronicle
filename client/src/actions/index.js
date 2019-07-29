@@ -11,6 +11,7 @@ export const fetchUser = () => async dispatch => {
 export const submitProject = (values, history) => async dispatch => {
     const res = await axios.post('/api/projects', values);
 
+    history.push('/dashboard');
     dispatch({ type: FETCH_USER, payload: res.data });
 };
 
