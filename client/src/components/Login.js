@@ -15,10 +15,8 @@ const renderField = ({ input, label, type, meta: { touched, error} }) => (
 
 const Login = ({ error,handleSubmit, submitting, history }) => {
     const validateLogin = values => {
-        console.log(values);
         return axios.post('/api/login', values)
         .then(res => {
-            console.log(res.data);
             if (res.data.success === false) {
                 throw new SubmissionError({
                     _error: res.data.message

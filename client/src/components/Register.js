@@ -15,10 +15,8 @@ const renderField = ({ input, label, type, meta: { touched, error} }) => (
 
 const Register = ({error, handleSubmit, submitting, history}) => {
     const validateRegister = values => {
-        console.log(values);
         return axios.post('/api/register', values)
         .then(res => {
-            console.log(res.data);
             if (res.data.errors) {
                 throw new SubmissionError({
                     _error: res.data.errors[0].msg

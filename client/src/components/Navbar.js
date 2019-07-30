@@ -3,10 +3,39 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 class Navbar extends React.Component {
+    renderContent() {
+        switch (this.props.auth) {
+            case null:
+                return;
+            case false:
+                return(
+                    <ul key="unauthorized"className="navbar-nav">
+                        <li className="nav-item"><a className="nav-link"href="/login">Login</a></li>
+                    </ul>
+                )
+            default:
+                return [
+                    <ul key="authorized"className="navbar-nav">
+                    <li className="nav-item">
+                        <a className="nav-link" href="/dashboard">Dashboard</a>
+                    </li>
+                    <li className="nav-item ">
+                        <a className="nav-link" href="/roadmap">Roadmap</a>
+                    </li>
+                </ul>,
+                <ul key="logout"className="navbar-nav ml-auto">
+                    <li className="nav-item">
+                        <a className="nav-link" href="/api/logout">Logout</a>
+                    </li>
+                </ul>
+                ]
+        }
+    }
     render() {
+        console.log(this.props);
         return(
             <nav className="navbar navbar-expand-lg navbar-light">
-                <Link to='/' className="navbar-brand">Chronicle</Link>
+                <Link to={this.props.auth ? '/dashboard' : '/login'} className="navbar-brand">Chronicle</Link>
                 <button 
                     className="navbar-toggler" 
                     type="button" 
@@ -14,23 +43,12 @@ class Navbar extends React.Component {
                     data-target="#navbar" 
                     aria-controls="navbar" 
                     aria-expanded="false" 
-                    aria-label="Toggle navigation">
+                    aria-label="Toggle navigation"
+                >
                     <span className="navbar-toggler-icon"></span>                       
                 </button>
                 <div className="collapse navbar-collapse" id="navbar">
-                    <ul className="navbar-nav">
-                        <li className="nav-item">
-                            <a className="nav-link" href="/projects">Projects</a>
-                        </li>
-                        <li className="nav-item ">
-                            <a className="nav-link" href="/roadmap">Roadmap</a>
-                        </li>
-                    </ul>
-                    <ul className="navbar-nav ml-auto">
-                        <li className="nav-item">
-                                <a className="nav-link" href="/api/logout">Logout</a>
-                        </li>
-                    </ul>
+                    {this.renderContent()}
                 </div>
             </nav>
         );
