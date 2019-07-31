@@ -1,0 +1,12 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
+/* LANDING PAGE STYLING */
+#landing {
+    font-family: 'Montserrat';
+    padding-top: 25%;
+    font-size: 60px;
+}
+
+#landing-subtext {
+    font-family: 'Montserrat';
+    font-size: 18px;
+}
