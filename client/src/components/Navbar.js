@@ -9,7 +9,9 @@ class Navbar extends React.Component {
                 return;
             case false:
                 return(
-                    <ul key="unauthorized"className="navbar-nav">
+                    <ul key="unauthorized"className="navbar-nav">                       
+                    </ul>,
+                    <ul className="navbar-nav ml-auto">
                         <li className="nav-item"><a className="nav-link"href="/login">Login</a></li>
                     </ul>
                 )
@@ -32,7 +34,6 @@ class Navbar extends React.Component {
         }
     }
     render() {
-        console.log(this.props);
         return(
             <nav className="navbar navbar-expand-lg navbar-light">
                 <Link to={this.props.auth ? '/dashboard' : '/login'} className="navbar-brand">Chronicle</Link>
