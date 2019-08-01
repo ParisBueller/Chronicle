@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import  { fetchProjects } from '../../actions';
 
@@ -10,7 +11,9 @@ class ProjectList extends React.Component {
 
     renderProjects() {
         return this.props.projects.reverse().map(project => {
+            let projectURL = `/projects/${project._id}`;
             return(
+                <Link to={projectURL} className="text-dark">
                 <div className="card mb-3" key={project._id}>
                     <div className="row no-gutters">
                         <div className="m-auto col-md-4">
@@ -26,6 +29,7 @@ class ProjectList extends React.Component {
                         </div>
                     </div>
                 </div>
+                </Link>
             );
         });
     }

@@ -13,7 +13,7 @@ const renderField = ({ input, label, type, meta: { touched, error} }) => (
     </div>
 )
 
-const Login = ({ error,handleSubmit, submitting, history }) => {
+const Login = ({ error,handleSubmit, submitting, history, fetchUser }) => {
     const validateLogin = values => {
         return axios.post('/api/login', values)
         .then(res => {
