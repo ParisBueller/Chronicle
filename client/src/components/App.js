@@ -10,6 +10,7 @@ import Navbar from './Navbar';
 import ProjectNew from './projects/ProjectNew';
 import Landing from './Landing';
 import Project from './projects/Project';
+import FeatureNew from './features/FeatureNew';
 
 
 class App extends React.Component {
@@ -29,6 +30,7 @@ class App extends React.Component {
                         <Route exact path="/" component={Landing}/>
                         <Route path="/projects/new" component={ProjectNew}/>
                         <Route path="/projects/:id" component={Project}/>
+                        <Route path="/features/new" component={FeatureNew}/>
                     </div>
                 </BrowserRouter>
             </div>
