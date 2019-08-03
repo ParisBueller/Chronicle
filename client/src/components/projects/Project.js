@@ -1,12 +1,21 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
-const Project = ({ match }) => {
-    console.log(match);
-    return(
-        <div>
-            Project
-        </div>
-    );
-};
+import { fetchFeatures } from '../../actions/index';
 
-export default Project;
+class Project extends React.Component {
+    componentDidMount() {
+        this.props.fetchFeatures();
+    }
+    render() {
+        return(
+            <div>Project</div>
+        )
+    }
+}
+
+function mapStateToProps({ features }) {
+    return { features };
+}
+
+export default connect(mapStateToProps, {fetchFeatures})(Project);

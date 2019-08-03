@@ -28,6 +28,6 @@ module.exports = app => {
             res.status(422);
         }
 
-    });    
+    });
 };
 

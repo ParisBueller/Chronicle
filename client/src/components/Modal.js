@@ -2,6 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Link } from 'react-router-dom';
 import { Field, reduxForm } from 'redux-form';
+import { withRouter } from 'react-router-dom'
+
+import { submitFeature } from '../actions/index';
 
 const renderField = ({ input, label, type, meta: { touched, error } }) => (
     <div className="form-group">
@@ -13,8 +16,11 @@ const renderField = ({ input, label, type, meta: { touched, error } }) => (
     </div>
 )
 
-const Modal = ({ error }) => {
-    
+const Modal = ({ error, handleSubmit }) => {
+    function dispatchSubmitFeature(values, dispatch, history) {
+        return dispatch(submitFeature(values, history));
+    }
+
     return ReactDOM.createPortal(
         <div className="modal-fade">
             <div className="modal-dialog modal-dialog-centered">
@@ -26,12 +32,14 @@ const Modal = ({ error }) => {
                         </button>
                     </div>
                     <div className="modal-body">
-                        <Field name="name" type="text" component={renderField} label="Feature"placeholder="Feature Name"/>
-                        <Field name="designation" type="text" component={renderField} label="Designation"placeholder="i.e. frontend, backend, database" />
+                        <form >
+                            <Field name="name" type="text" component={renderField} label="Feature"placeholder="Feature Name"/>
+                            <Field name="designation" type="text" component={renderField} label="Designation"placeholder="i.e. frontend, backend, database" />
+                        </form>
                     </div>
                     <div className="modal-footer">
                         <Link to="/projects/:id"type="button" className="btn btn-secondary" data-dismiss="modal">Cancel</Link>
-                        <button type="button" className="btn btn-success">Add</button>
+                        <button onClick={handleSubmit(dispatchSubmitFeature)}type="submit" className="btn btn-success">Add</button>
                         {error && <div className="alert alert-danger text-center mb-2" role="alert">{JSON.stringify(error)}</div>}
                     </div>
                 </div>
@@ -41,6 +49,8 @@ const Modal = ({ error }) => {
     );
 };
 
-export default reduxForm({
-    form: 'featureNew'
-})(Modal);
+
+
+export default withRouter(reduxForm({
+    form: 'featureNewForm'
+})(Modal));
