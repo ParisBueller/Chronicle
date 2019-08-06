@@ -17,6 +17,7 @@ const renderField = ({ input, label, type, meta: { touched, error } }) => (
 
 const Modal = ({ error, handleSubmit, match, history }) => {
     const projectId = match.params.id;
+    const projectURL = `/projects/${projectId}`;
     console.log(projectId);
     const submitFeature = values  => {
         return axios.post('/api/features',{ 
@@ -28,8 +29,7 @@ const Modal = ({ error, handleSubmit, match, history }) => {
             console.log(res.data);
             history.push(`/projects/${projectId}`);
         })
-    }
-
+    }    
     return ReactDOM.createPortal(
         <div className="modal-fade">
             <div className="modal-dialog modal-dialog-centered">
@@ -47,7 +47,7 @@ const Modal = ({ error, handleSubmit, match, history }) => {
                         </form>
                     </div>
                     <div className="modal-footer">
-                        <Link to='/project/:id' type="button" className="btn btn-secondary" data-dismiss="modal">Cancel</Link>
+                        <Link to={projectURL} type="button" className="btn btn-secondary" data-dismiss="modal">Cancel</Link>
                         <button onClick={handleSubmit(submitFeature)}type="submit" className="btn btn-success">Add</button>
                         {error && <div className="alert alert-danger text-center mb-2" role="alert">{JSON.stringify(error)}</div>}
                     </div>

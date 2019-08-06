@@ -28,9 +28,9 @@ class App extends React.Component {
                         <Route exact path="/register" component={Register}/>
                         <Route exact path="/dashboard" component={Dashboard}/>
                         <Route exact path="/" component={Landing}/>
-                        <Route path="/projects/new" component={ProjectNew}/>
-                        <Route path="/projects/:id" component={Project}/>
-                        <Route path="/projects/:id/feature" component={FeatureNew}/>
+                        <Route exact path="/project/new" component={ProjectNew}/>
+                        <Route exact path="/projects/:id" component={Project}/>
+                        <Route exact path="/projects/:id/feature" component={FeatureNew}/>
                     </div>
                 </BrowserRouter>
             </div>
