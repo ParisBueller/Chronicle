@@ -8,13 +8,13 @@ class ProjectList extends React.Component {
     componentDidMount() {
         this.props.fetchProjects();
     }
-
+    
     renderProjects() {
         return this.props.projects.reverse().map(project => {
-            let projectURL = `/projects/${project._id}`;
+            let projectId = `/projects/${project._id}`;
             return(
-                <Link to={projectURL} className="text-dark">
-                <div className="card mb-3" key={project._id}>
+                <Link key={project._id} to={projectId} className="text-dark">
+                <div className="card mb-3" >
                     <div className="row no-gutters">
                         <div className="m-auto col-md-4">
                             <i className="ml-5 fas fa-project-diagram fa-3x"></i>

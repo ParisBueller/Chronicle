@@ -3,8 +3,7 @@ import ReactDOM from 'react-dom';
 import { Link } from 'react-router-dom';
 import { Field, reduxForm } from 'redux-form';
 import { withRouter } from 'react-router-dom'
-
-import { submitFeature } from '../actions/index';
+import axios from 'axios';
 
 const renderField = ({ input, label, type, meta: { touched, error } }) => (
     <div className="form-group">
@@ -16,9 +15,19 @@ const renderField = ({ input, label, type, meta: { touched, error } }) => (
     </div>
 )
 
-const Modal = ({ error, handleSubmit }) => {
-    function dispatchSubmitFeature(values, dispatch, history) {
-        return dispatch(submitFeature(values, history));
+const Modal = ({ error, handleSubmit, match, history }) => {
+    const projectId = match.params.id;
+    console.log(projectId);
+    const submitFeature = values  => {
+        return axios.post('/api/features',{ 
+            name: values.name, 
+            designation: values.designation, 
+            projectId: match.params.id
+        })
+        .then( res => {
+            console.log(res.data);
+            history.push(`/projects/${projectId}`);
+        })
     }
 
     return ReactDOM.createPortal(
@@ -32,14 +41,14 @@ const Modal = ({ error, handleSubmit }) => {
                         </button>
                     </div>
                     <div className="modal-body">
-                        <form >
+                        <form>
                             <Field name="name" type="text" component={renderField} label="Feature"placeholder="Feature Name"/>
                             <Field name="designation" type="text" component={renderField} label="Designation"placeholder="i.e. frontend, backend, database" />
                         </form>
                     </div>
                     <div className="modal-footer">
-                        <Link to="/projects/:id"type="button" className="btn btn-secondary" data-dismiss="modal">Cancel</Link>
-                        <button onClick={handleSubmit(dispatchSubmitFeature)}type="submit" className="btn btn-success">Add</button>
+                        <Link to='/project/:id' type="button" className="btn btn-secondary" data-dismiss="modal">Cancel</Link>
+                        <button onClick={handleSubmit(submitFeature)}type="submit" className="btn btn-success">Add</button>
                         {error && <div className="alert alert-danger text-center mb-2" role="alert">{JSON.stringify(error)}</div>}
                     </div>
                 </div>
@@ -48,7 +57,6 @@ const Modal = ({ error, handleSubmit }) => {
         document.querySelector('#modal')
     );
 };
-
 
 
 export default withRouter(reduxForm({

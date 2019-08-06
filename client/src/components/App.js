@@ -30,7 +30,7 @@ class App extends React.Component {
                         <Route exact path="/" component={Landing}/>
                         <Route path="/projects/new" component={ProjectNew}/>
                         <Route path="/projects/:id" component={Project}/>
-                        <Route path="/features/new" component={FeatureNew}/>
+                        <Route path="/projects/:id/feature" component={FeatureNew}/>
                     </div>
                 </BrowserRouter>
             </div>

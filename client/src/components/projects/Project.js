@@ -1,21 +1,20 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
-import { fetchFeatures } from '../../actions/index';
 
 class Project extends React.Component {
-    componentDidMount() {
-        this.props.fetchFeatures();
-    }
+    state = {projectId: this.props.match.params.id};
+    
     render() {
+        console.log(this.state);
+        const projectFeatureURL = `/projects/${this.state.projectId}/feature`;
         return(
-            <div>Project</div>
+            <div>
+                <Link className="btn btn-success" to={projectFeatureURL} >Add Feature</Link>
+            </div>
         )
     }
 }
 
-function mapStateToProps({ features }) {
-    return { features };
-}
 
-export default connect(mapStateToProps, {fetchFeatures})(Project);
+export default Project;

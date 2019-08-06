@@ -41,7 +41,7 @@ function validate(values) {
 
     _.each(projectFields, ({ name }) => {
         if (!values[name]) {
-            errors[name] = 'You must provide a value'
+            errors[name] = <div className="alert alert-danger">You must provide a value</div>
         }
     });
     return errors;

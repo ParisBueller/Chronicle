@@ -5,25 +5,28 @@ const requireLogin = require('../middlewares/requireLogin');
 const Feature = mongoose.model('feature');
 
 module.exports = app => {
-    app.get('/api/features', requireLogin, async (req, res)  => {
-        const features = await Feature.find({ _project: req.project.id});
+    app.get('/api/projects/:id', requireLogin, async (req, res)  => {
+        const features = await Feature.find({ _project: req.params.id});
         res.send(features);
     })
 
     app.post('/api/features', requireLogin, async (req, res) => {
-        const { name, designation } = req.body;
-
+        const { name, designation, projectId } = req.body;
+        console.log(req.body);
         const feature = new Feature({
             name,
             designation,
             createdAt: Date.now(),
-            status: {todo: true},
-            _project: req.project.id
+            toDo: true,
+            inProgress: false,
+            completed: false,
+            _project: projectId
         });
         try {
             await feature.save();
             res.send(feature);
-        } catch (err) {
+        } catch(err) {
+            res.send(err);
             res.status(422);
         }
     })
