@@ -1,4 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro&display=swap');
+
 /* ********************* */
 /* LANDING PAGE STYLING! */
 /* ******************** */
@@ -45,7 +47,7 @@
 }
 
 #add-project #tooltip {
-    font-family:'Montserrat';
+    font-family:'Source Sans Pro';
     visibility: hidden;
     background-color: white;
     color: black;
@@ -61,3 +63,6 @@
     visibility: visible;
 }
 
+/* ************** */
+/* **NAVBAR STYLING! */
+/* *************** */

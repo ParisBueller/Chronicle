@@ -5,7 +5,8 @@ const requireLogin = require('../middlewares/requireLogin');
 const Feature = mongoose.model('feature');
 
 module.exports = app => {
-    app.get('/api/projects/:id', requireLogin, async (req, res)  => {
+    app.get('/api/features/:id', requireLogin, async (req, res)  => {
+        console.log(req.params.id);
         const features = await Feature.find({ _project: req.params.id});
         res.send(features);
     })
