@@ -1,9 +1,9 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
 @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro&display=swap');
 
-/* ********************* */
-/* LANDING PAGE STYLING! */
 /* ******************** */
+/* ** LANDING PAGE ** */
+/* ******************* */
 #landing {
     font-family: 'Montserrat';
     padding-top: 25%;
@@ -37,8 +37,8 @@
     }
 }
 
-/* **************** */
-/* DASHBOARD STYLING! */
+/* *************** */
+/* ** DASHBOARD **  */
 /* ************** */
 
 #add-project{
@@ -64,8 +64,16 @@
 }
 
 /* ************** */
-/* **LOADING SPINNER! */
+/* LOADING SPINNER! */
 /* *************** */
+.lds-ripple-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -moz-transform: translateX(-50%) translateY(-50%);
+  -webkit-transform: translateX(-50%) translateY(-50%);
+  transform: translateX(-50%) translateY(-50%);
+}
 .lds-ripple {
     display: inline-block;
     position: relative;
@@ -97,4 +105,10 @@
       height: 58px;
       opacity: 0;
     }
+  }
+  /* *********** */
+  /* FEATURES */
+  /* ********* */
+  #feature-list {
+    font-family: 'Source Sans Pro';
   }

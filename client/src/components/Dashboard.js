@@ -9,10 +9,24 @@ class Dashboard extends React.Component {
     componentDidMount() {
         this.props.fetchUser();
     }
+    renderDashboard() {
+        if (this.props.auth === null || false) {
+            return (
+                <div className="lds-ripple-container">
+                    <div className="lds-ripple"><div></div><div></div></div>
+                </div>
+                
+                );
+            } 
+            return (
+                    <ProjectList />
+                 );
+        }
+
     render() {
         return(
             <div>
-                <ProjectList />
+                {this.renderDashboard()}
                 <Link className="btn float-right mt-5" to="/project/new">
                     <div id="add-project">                  
                         <span id="tooltip">Add a new project!</span>

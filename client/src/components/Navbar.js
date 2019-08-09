@@ -22,9 +22,6 @@ class Navbar extends React.Component {
                     <li className="nav-item">
                         <a className="nav-link" href="/dashboard">Dashboard</a>
                     </li>
-                    <li className="nav-item ">
-                        <a className="nav-link" href="/roadmap">Roadmap</a>
-                    </li>
                 </ul>,
                 <ul key="logout"className="navbar-nav ml-auto">
                     <li className="nav-item">
