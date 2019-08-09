@@ -31,7 +31,7 @@ const Register = ({error, handleSubmit, submitting, history}) => {
             <div className="col-md-6 m-auto">
                 <div className="card card-body">
                     <h1 className="text-center mb-3">
-                        <i className="fas fa-user-plus"></i>
+                        <i className="mr-2 fas fa-user-plus"></i>
                         Register
                     </h1>
                     <form onSubmit={handleSubmit(validateRegister)} className="mb-3">

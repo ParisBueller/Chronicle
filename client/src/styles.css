@@ -1,6 +1,19 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
 @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro&display=swap');
 
+/* ********* */
+/* *NAVBAR* */
+/* ******* */
+.navbar-brand {
+  font-family: 'Montserrat';
+  font-size: 26px;
+}
+
+.nav-item {
+  font-family: 'Source Sans Pro';
+}
+
+
 /* ******************** */
 /* ** LANDING PAGE ** */
 /* ******************* */
@@ -106,9 +119,21 @@
       opacity: 0;
     }
   }
+
   /* *********** */
   /* FEATURES */
   /* ********* */
   #feature-list {
+    font-family: 'Source Sans Pro';
+  }
+
+  /* ****** */
+  /* LOGIN */
+  /* ***** */
+  #log-in-header {
+    font-family: 'Montserrat';
+  }
+
+  #log-in-button {
     font-family: 'Source Sans Pro';
   }

@@ -30,17 +30,18 @@ const Login = ({ error,handleSubmit, submitting, history, fetchUser }) => {
             <div className="row mt-5">
                 <div className="col-md-6 m-auto">
                     <div className="card card-body">
-                        <h1 className="text-center mb-3">Chronicle</h1>
+                        <h1 id="log-in-header" className="text-center mb-3">Chronicle</h1>
                         <form onSubmit={handleSubmit(validateLogin)} className="mb-3">
                             <Field name="email" type="text" component={renderField} label="Email"/>
                             <Field name="password" type="password" component={renderField} label="Password"/>
                             {error && <div className="alert alert-danger text-center mb-2" role="alert">{JSON.stringify(error)}</div>}
                             <button disabled={submitting} type="submit" className="btn btn-primary btn-block">Log In</button>
                         </form>
+                        <small className="text-muted text-center mb-3">Or</small>
                         <a className="btn btn-secondary btn-block" href="/auth/github"><i className="fab fa-github"></i> Log In with Github</a>
-                        <a className="btn btn-danger btn-block" href="/auth/google"><i className="fab fa-google"> Log In with Google</i></a>
+                        <a className="btn btn-danger btn-block" href="/auth/google"><i className="fab fa-google"></i> Log In with Google</a>
                         <p className="text-center lead mt-4">
-                            No account? <Link to="/register">Register</Link>
+                            No account? <Link className="text-dark" to="/register">Register</Link>
                         </p>
                     </div>
                 </div>

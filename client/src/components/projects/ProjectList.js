@@ -25,7 +25,8 @@ class ProjectList extends React.Component {
                                 </Link>
                                 <p className="card-text">{project.description}</p>
                                 <a href={project.repo}className="card-text text-reset">{project.repo}</a>
-                                <p className="card-text"><small className="text-muted">Created on {new Date(project.dateCreated).toLocaleDateString()}</small></p>                           
+                                <p className="card-text"><small className="text-muted">Created on {new Date(project.dateCreated).toLocaleDateString()}</small></p>
+                                <button className="btn float-right"><i className="far fa-trash-alt"></i></button>                           
                             </div>
                         </div>
                     </div>

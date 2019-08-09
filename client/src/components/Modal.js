@@ -5,11 +5,11 @@ import { Field, reduxForm } from 'redux-form';
 import { withRouter } from 'react-router-dom'
 import axios from 'axios';
 
-const renderField = ({ input, label, type, meta: { touched, error } }) => (
+const renderField = ({ input, label, type, placeholder,meta: { touched, error } }) => (
     <div className="form-group">
         <label>{label}</label>
         <div>
-            <input className="form-control" {...input} placeholder={label} type={type} />
+            <input className="form-control" {...input} type={type} placeholder={placeholder}/>
             {touched && error && <div className="alert alert-danger text-center mt-1" role="alert">{JSON.stringify(error)}></div>}
         </div>
     </div>
