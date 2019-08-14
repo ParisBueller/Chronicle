@@ -31,4 +31,10 @@ module.exports = app => {
             res.status(422);
         }
     })
+    app.delete('/api/features/:id', requireLogin, async (req, res) => {
+        console.log(req.params.id);
+        const id = req.params.id;
+        await Feature.findByIdAndDelete(id);
+        res.send('Feature has been deleted!');
+    })
 }

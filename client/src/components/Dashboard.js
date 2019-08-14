@@ -29,7 +29,7 @@ class Dashboard extends React.Component {
                 {this.renderDashboard()}
                 <Link className="btn float-right mt-5" to="/project/new">
                     <div id="add-project">                  
-                        <span id="tooltip">Add a new project!</span>
+                        <span id="tooltip">Add a new project</span>
                         <i className="fas fa-plus fa-2x"></i>                       
                     </div>
                 </Link>
