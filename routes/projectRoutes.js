@@ -27,9 +27,12 @@ module.exports = app => {
         } catch (err) {
             res.status(422);
         }
-
     });
 
-    
+    app.delete('/api/projects/:id', requireLogin, async (req, res) => {
+        const id = req.params.id;
+        await Project.findByIdAndDelete(id);
+        res.send('Project has been deleted!');
+    });  
 };
 

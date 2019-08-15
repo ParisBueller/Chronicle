@@ -3,14 +3,22 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import  { fetchProjects } from '../../actions';
+import axios from 'axios';
 
 class ProjectList extends React.Component {
     componentDidMount() {
         this.props.fetchProjects();
     }
+
     
     renderProjects() {
         return this.props.projects.reverse().map(project => {
+            const deleteProject = () => {
+                if (window.confirm('Are you sure you want to Delete this Project?')) {
+                    axios.delete(`/api/projects/${project._id}`)
+                    return this.props.fetchProjects();
+                }
+            }
             let projectId = `/projects/${project._id}`;
             return(               
                 <div key={project._id} className="card mb-3" >
@@ -26,7 +34,7 @@ class ProjectList extends React.Component {
                                 <p className="card-text">{project.description}</p>
                                 <a href={project.repo}className="card-text text-reset">{project.repo}</a>
                                 <p className="card-text"><small className="text-muted">Created on {new Date(project.dateCreated).toLocaleDateString()}</small></p>
-                                <button className="btn float-right"><i className="far fa-trash-alt"></i></button>                           
+                                <button onClick={(deleteProject)}className="btn float-right"><i className="far fa-trash-alt"></i></button>                           
                             </div>
                         </div>
                     </div>
