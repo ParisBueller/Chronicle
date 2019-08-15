@@ -6,7 +6,6 @@ const featureSchema = new Schema({
     designation: String,
     createdAt: Date,  
     toDo: {type:Boolean, default: true },
-    inProgress: {type:Boolean, default: false },
     complete: {type:Boolean, default: false },
     _project: {type: Schema.Types.ObjectId, ref: 'Project'}
 });

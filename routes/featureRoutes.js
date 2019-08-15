@@ -31,6 +31,14 @@ module.exports = app => {
             res.status(422);
         }
     })
+
+    app.put('/api/features/:id', requireLogin, async (req, res) => {
+        console.log(req.params.id);
+        const feature = await Feature.findByIdAndUpdate({_id: req.params.id}, {"$set":{"complete": true, "toDo": false }}, {returnOriginal: false});
+        console.log(feature);
+        res.send(feature);
+    });
+
     app.delete('/api/features/:id', requireLogin, async (req, res) => {
         console.log(req.params.id);
         const id = req.params.id;

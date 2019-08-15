@@ -30,6 +30,11 @@ class Project extends React.Component {
                 })
                 }
             }
+            const updateFeature = () => {
+                if (window.confirm('Change the status of this feature?')) {
+                    axios.put(`/api/features/${feature._id}`)
+                }
+            }
             return(
                 <li key={feature._id} id="feature-list" className="list-group-item"> Name: {feature.name} 
                     <p id="feature-list" className="text-muted mt-3"> Designation: {feature.designation}</p>
@@ -39,7 +44,12 @@ class Project extends React.Component {
                         className="btn float-right">
                         <i className="far fa-trash-alt"></i>
                     </button>
-                    <button className="btn float-right"><i className="fas fa-check"></i></button>
+                    <button
+                        type="submit" 
+                        onClick={(updateFeature)}
+                        className="btn float-right">
+                        <i className="fas fa-check"></i>
+                    </button>
                 </li>               
             );  
         });        
