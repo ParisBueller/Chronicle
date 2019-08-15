@@ -31,7 +31,7 @@ class Project extends React.Component {
                 }
             }
             const updateFeature = () => {
-                if (window.confirm('Change the status of this feature?')) {
+                if (window.confirm('Change this features status to complete?')) {
                     axios.put(`/api/features/${feature._id}`)
                 }
             }
@@ -50,6 +50,9 @@ class Project extends React.Component {
                         className="btn float-right">
                         <i className="fas fa-check"></i>
                     </button>
+                    Status: 
+                    { feature.toDo ? <span className="badge-pill badge-warning ml-2"><i className="fas fa-clipboard"></i></span>
+                    : <span className="badge-pill badge-success ml-2"><i className="fas fa-clipboard-check"></i></span>}
                 </li>               
             );  
         });        
