@@ -50,7 +50,7 @@ passport.use(
     new GitHubStrategy({
         clientID: keys.githubClientID,
         clientSecret: keys.githubClientSecret,
-        callbackURL: '/auth/github/callback'
+        callbackURL: 'https://chronicle-tool.herokuapp.com/auth/github/callback'
     },
     async (accessToken, refreshToken ,profile, done) => {          
         try{
