@@ -10,7 +10,6 @@ require('./models/Feature');
 require('./services/passport');
 
 mongoose.connect(keys.mongoURI);
-console.log('MongoDB connected...')
 
 const app = express();
 
@@ -40,5 +39,3 @@ if (process.env.NODE_ENV === 'production') {
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT);
-
-console.log('we are live on port', PORT);

@@ -29,10 +29,7 @@ passport.use(
         proxy: true
     },
     async (acessToken, refreshToken , profile , done) => {
-        console.log(profile.emails[0].value);
-        console.log(profile.name);
         const name = profile.name.givenName + " " + profile.name.familyName;
-        console.log(name);
         const googleUser = await User.findOne({ googleId: profile.id});
         const existingUser = await User.findOne({ email: profile.emails[0].value, name:name});
         if (googleUser) {
@@ -56,8 +53,6 @@ passport.use(
         callbackURL: '/auth/github/callback'
     },
     async (accessToken, refreshToken ,profile, done) => {          
-        console.log(profile.emails[0].value);
-        console.log(profile.displayName);
         try{
             const githubUser = await User.findOne({ githubId: profile.id});
             const existingUser = await User.findOne({email: profile.emails[0].value, name: profile.displayName});

@@ -18,7 +18,6 @@ const renderField = ({ input, label, type, placeholder,meta: { touched, error } 
 const Modal = ({ error, handleSubmit, match, history }) => {
     const projectId = match.params.id;
     const projectURL = `/projects/${projectId}`;
-    console.log(projectId);
     const submitFeature = values  => {
         return axios.post('/api/features',{ 
             name: values.name, 
@@ -26,7 +25,6 @@ const Modal = ({ error, handleSubmit, match, history }) => {
             projectId: match.params.id
         })
         .then( res => {
-            console.log(res.data);
             history.push(`/projects/${projectId}`);
         })
     }    
