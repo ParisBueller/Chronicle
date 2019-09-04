@@ -5,21 +5,20 @@ import { Link } from 'react-router-dom';
 import  { fetchProjects } from '../../actions';
 import axios from 'axios';
 
+const deleteProject = (id) => {
+    if (window.confirm('Are you sure you want to Delete this Project?')) {
+        axios.delete(`/api/projects/${id}`)
+        return this.props.fetchProjects();
+    }
+}
+
 class ProjectList extends React.Component {
     componentDidMount() {
         this.props.fetchProjects();
     }
-
-    
     renderProjects() {
         return this.props.projects.reverse().map(project => {
-            const deleteProject = () => {
-                if (window.confirm('Are you sure you want to Delete this Project?')) {
-                    axios.delete(`/api/projects/${project._id}`)
-                    return this.props.fetchProjects();
-                }
-            }
-            let projectId = `/projects/${project._id}`;
+            let projectLink = `/projects/${project._id}`;
             return(               
                 <div key={project._id} className="card mb-3" >
                     <div className="row no-gutters">
@@ -28,13 +27,13 @@ class ProjectList extends React.Component {
                         </div>
                         <div className="col-md-8">
                             <div className="card-body">
-                                <Link to={projectId} className="text-dark">
+                                <Link to={projectLink} className="text-dark">
                                     <h5 className="card-title">{project.name}</h5>
                                 </Link>
                                 <p className="card-text">{project.description}</p>
                                 <a href={project.repo}className="card-text text-reset">{project.repo}</a>
                                 <p className="card-text"><small className="text-muted">Created on {new Date(project.dateCreated).toLocaleDateString()}</small></p>
-                                <button onClick={(deleteProject)}className="btn float-right"><i className="far fa-trash-alt"></i></button>                           
+                                <button onClick={()=>{deleteProject(project._id)}} className="btn float-right"><i className="far fa-trash-alt"></i></button>                           
                             </div>
                         </div>
                     </div>
