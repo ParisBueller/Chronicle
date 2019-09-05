@@ -5,17 +5,20 @@ import { Link } from 'react-router-dom';
 import  { fetchProjects } from '../../actions';
 import axios from 'axios';
 
-const deleteProject = (id) => {
-    if (window.confirm('Are you sure you want to Delete this Project?')) {
-        axios.delete(`/api/projects/${id}`)
-        return this.props.fetchProjects();
-    }
-}
+
 
 class ProjectList extends React.Component {
     componentDidMount() {
         this.props.fetchProjects();
     }
+
+    deleteProject(id) {
+        if (window.confirm('Are you sure you want to Delete this Project?')) {
+            axios.delete(`/api/projects/${id}`)
+            return this.props.fetchProjects();
+        }
+    }
+
     renderProjects() {
         return this.props.projects.reverse().map(project => {
             let projectLink = `/projects/${project._id}`;
@@ -33,7 +36,7 @@ class ProjectList extends React.Component {
                                 <p className="card-text">{project.description}</p>
                                 <a href={project.repo}className="card-text text-reset">{project.repo}</a>
                                 <p className="card-text"><small className="text-muted">Created on {new Date(project.dateCreated).toLocaleDateString()}</small></p>
-                                <button onClick={()=>{deleteProject(project._id)}} className="btn float-right"><i className="far fa-trash-alt"></i></button>                           
+                                <button onClick={()=>{this.deleteProject(project._id)}} className="btn float-right"><i className="far fa-trash-alt"></i></button>                           
                             </div>
                         </div>
                     </div>

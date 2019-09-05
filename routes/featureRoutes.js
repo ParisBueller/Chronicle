@@ -30,9 +30,12 @@ module.exports = app => {
         }
     })
 
-    app.put('/api/features/:id', requireLogin, async (req, res) => {
-        const feature = await Feature.findByIdAndUpdate({_id: req.params.id}, {"$set":{"complete": true, "toDo": false }}, {returnOriginal: false});
-        res.send(feature);
+    app.post('/api/features/:id', requireLogin, async (req, res) => {
+        console.log(req.body)
+         await Feature.findByIdAndUpdate({_id: req.params.id}, {"$set":{"complete": true, "toDo": false }}, {returnOriginal: false});
+         const features = await Feature.find({ _project: req.body.projectId});
+         console.log(features);
+        res.send(features);
     });
 
     app.delete('/api/features/:id', requireLogin, async (req, res) => {

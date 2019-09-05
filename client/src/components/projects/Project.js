@@ -2,30 +2,35 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
-const deleteFeature = (featureId, projectId) => {
-    if (window.confirm('Are you sure you want to delete this feature?')) {
-        axios.delete(`/api/features/${feature._id}`)
-        return axios.get(`/api/features/${this.state.projectId}`)
-        .then(res => {
-        this.setState({ features: res.data });
-    })
-    }
-}
-const updateFeature = (featureId) => {
-    if (window.confirm('Change this features status to complete?')) {
-        axios.put(`/api/features/${featureId}`)
-    }
-}
 
 class Project extends React.Component {
-    state = {projectId: this.props.match.params.id, features:null};
-    const projectFeatureURL = `/projects/${this.state.projectId}/feature`
+    state = {projectId: this.props.match.params.id, features:[]};
     componentDidMount() {
             return axios.get(`/api/features/${this.state.projectId}`)
             .then(res => {
             this.setState({features: res.data });
         })
     }
+
+     deleteFeature(id, projectId) {
+        if (window.confirm('Are you sure you want to delete this feature?')) {
+            axios.delete(`/api/features/${id}`)
+            return axios.get(`/api/features/${projectId}`)
+            .then(res => {
+            this.setState({ features: res.data });
+        })
+        }
+    }
+
+     updateFeature (featureId, projectId) {
+        if (window.confirm('Change this features status to complete?')) {
+            axios.post(`/api/features/${featureId}`, { projectId })
+            .then( res => {
+                this.setState({ features: res.data });
+            })
+        }
+    }
+    
     renderFeatures() {
         if (this.state.features == null) {
             return (
@@ -41,13 +46,13 @@ class Project extends React.Component {
                     <p id="feature-list" className="text-muted mt-3"> Designation: {feature.designation}</p>
                     <button
                         type="submit" 
-                        onClick={()=>{deleteFeature(feature._id, this.state.projectId)}}
+                        onClick={()=>{this.deleteFeature(feature._id, this.state.projectId)}}
                         className="btn float-right">
                         <i className="far fa-trash-alt"></i>
                     </button>
                     <button
                         type="submit" 
-                        onClick={()=>{updateFeature(feature._id)}}
+                        onClick={()=>{this.updateFeature(feature._id, this.state.projectId)}}
                         className="btn float-right">
                         <i className="fas fa-check"></i>
                     </button>
@@ -58,7 +63,7 @@ class Project extends React.Component {
             );  
         });        
     }
-    renderCompletedFeatures() {
+    renderCompleteFeatures() {
         if (this.state.features == null) {
             return (
                 <div className="lds-ripple-container">
@@ -73,13 +78,13 @@ class Project extends React.Component {
                     <p id="feature-list" className="text-muted mt-3"> Designation: {feature.designation}</p>
                     <button
                         type="submit" 
-                        onClick={()=>{deleteFeature(feature._id, this.state.projectId)}}
+                        onClick={()=>{this.deleteFeature(feature._id, this.state.projectId)}}
                         className="btn float-right">
                         <i className="far fa-trash-alt"></i>
                     </button>
                     <button
                         type="submit" 
-                        onClick={()=>{updateFeature(feature._id)}}
+                        onClick={()=>{this.updateFeature(feature._id, this.state.projectId)}}
                         className="btn float-right">
                         <i className="fas fa-check"></i>
                     </button>
@@ -96,16 +101,16 @@ class Project extends React.Component {
         return(
             <div>
                 <ul className="list-group mt-5">
-                <h2>Current Features</h2>
+                <h2 className="features">Current Features</h2>
                     {this.renderFeatures() }   
                 </ul>
                 {this.state.features.filter((f)=>f.complete).length > 0 &&
                     <ul className="list-group mt-5">
-                    <h2>Complete Features</h2>
+                    <h2 className="features">Complete Features</h2>
                         {this.renderCompleteFeatures()}   
                     </ul>
                 }
-                <Link className="float-right mt-5 btn btn-success" to={projectFeatureURL} >Add Feature</Link>
+                <Link className="float-right mt-5 btn btn-success" to={`/projects/${this.state.projectId}/feature`} >Add Feature</Link>
             </div>
         )
     }
