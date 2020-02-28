@@ -34,7 +34,7 @@ class Navbar extends React.Component {
     render() {
         return(
             <nav className="navbar navbar-expand-lg navbar-light">
-                <Link to={this.props.auth ? '/dashboard' : '/login'} className="navbar-brand">Chronicle</Link>
+                <Link to={this.props.auth ? '/dashboard' : '/'} className="navbar-brand">Chronicle</Link>
                 <button 
                     className="navbar-toggler" 
                     type="button" 

@@ -36,16 +36,13 @@ class ProjectForm extends React.Component {
     }
 }
 
-function validate(values) {
+const validate = values => {
     const errors = {};
-
-    _.each(projectFields, ({ name }) => {
-        if (!values[name]) {
-            errors[name] = <div className="alert alert-danger">You must provide a value</div>
+        if (!values.name) {
+            errors.name = <div className="alert alert-danger">You must provide a value</div>
         }
-    });
     return errors;
-}
+ }
 
 export default reduxForm({
     validate,
