@@ -39,6 +39,7 @@
     animation-delay: 1s;
 }
 
+
 @keyframes fadeIn {
     from {
         opacity: 0;
