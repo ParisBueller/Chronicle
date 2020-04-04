@@ -11,6 +11,7 @@ import ProjectNew from './projects/ProjectNew';
 import Landing from './Landing';
 import Project from './projects/Project';
 import FeatureNew from './features/FeatureNew';
+import KeyModal from './KeyModal';
 
 
 class App extends React.Component {
@@ -31,6 +32,7 @@ class App extends React.Component {
                         <Route exact path="/project/new" component={ProjectNew}/>
                         <Route exact path="/projects/:id" component={Project}/>
                         <Route exact path="/projects/:id/feature" component={FeatureNew}/>
+                        <Route exact path="/project/:id/keys" component={KeyModal} />
                     </div>
                 </BrowserRouter>
             </div>

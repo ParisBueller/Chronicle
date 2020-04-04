@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import  { fetchProjects } from '../../actions';
+import KeyModal from '../KeyModal'
 import axios from 'axios';
 
 
@@ -22,6 +23,7 @@ class ProjectList extends React.Component {
     renderProjects() {
         return this.props.projects.reverse().map(project => {
             let projectLink = `/projects/${project._id}`;
+            let projectKeys = `/project/${project._id}/keys`
             return(               
                 <div key={project._id} className="card mb-3" >
                     <div className="row no-gutters">
@@ -36,7 +38,8 @@ class ProjectList extends React.Component {
                                 <p className="card-text">{project.description}</p>
                                 <a href={project.repo}className="card-text text-reset">{project.repo}</a>
                                 <p className="card-text"><small className="text-muted">Created on {new Date(project.dateCreated).toLocaleDateString()}</small></p>
-                                <button onClick={()=>{this.deleteProject(project._id)}} className="btn float-right"><i className="far fa-trash-alt"></i></button>                           
+                                <button onClick={()=>{this.deleteProject(project._id)}} className="btn float-right"><i className="far fa-trash-alt"></i></button>  
+                                <Link to={projectKeys} className="btn float-right"><i className="fas fa-key"></i></Link>                    
                             </div>
                         </div>
                     </div>

@@ -1,11 +1,11 @@
 import React from 'react';
 
-import Modal from '../Modal';
+import FeatureModal from '../FeatureModal';
 
 const FeatureNew = () => {
     return(
         <div>
-        <Modal />
+        <FeatureModal />
     </div>
     );
 };
