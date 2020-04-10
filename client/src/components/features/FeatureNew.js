@@ -1,6 +1,6 @@
 import React from 'react';
 
-import FeatureModal from '../FeatureModal';
+import FeatureModal from './FeatureModal';
 
 const FeatureNew = () => {
     return(

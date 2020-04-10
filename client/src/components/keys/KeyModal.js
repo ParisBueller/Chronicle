@@ -16,7 +16,7 @@ const renderField = ({ input, label, type, placeholder,meta: { touched, error } 
 )
 
 const KeyModal = ({ error, handleSubmit, match, history }) => {
-    // const projectId = match.params.id;
+     const projectId = match.params.id;
     const submitKey = values  => {
         return axios.post('/api/keys',{ 
             name: values.name, 
@@ -25,7 +25,7 @@ const KeyModal = ({ error, handleSubmit, match, history }) => {
         })
         .then( res => {
             console.log(res);
-            history.push('/dashboard');
+            history.push(`/project/${projectId}/keys`);
         })
     }    
     return ReactDOM.createPortal(
@@ -33,7 +33,7 @@ const KeyModal = ({ error, handleSubmit, match, history }) => {
             <div className="modal-dialog modal-dialog-centered">
                 <div className="modal-content">
                     <div className="modal-header">
-                        <h5 className="modal-title">Add a Project Key</h5>
+                        <h5 className="modal-title">Config Variables</h5>
                         <button type="button" className="close" data-dismiss="modal" aria-label="close">
                             <span aria-hidden="true">&times;</span>
                         </button>
