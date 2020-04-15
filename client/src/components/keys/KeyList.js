@@ -36,8 +36,8 @@ class KeyList extends React.Component {
         const keys = this.state.keys;
         return keys.reverse().map(key => {
             return(
-                <li key={key._id} id="key-list" className=" list-group-item"> {key.name} 
-                <p id="feature-list" className="mt-3"> <i className="fas fa-key"> {key.key}</i></p>
+                <li key={key._id} id="key-list" className=" list-group-item"> <i className="fas fa-key mr-2"></i>{key.name}
+                <p className="mt-3 text-muted">  {key.key}</p>
                 <button
                     type="submit" 
                     onClick={()=>{this.deleteKey(key._id, this.state.projectId)}}
@@ -53,7 +53,7 @@ class KeyList extends React.Component {
         return(
             <div>
                 <ul className="list-group mt-5">
-                <h2 className="features">Config Variables</h2>
+                <h2 className="config-variables">Config Variables</h2>
                     {this.renderKeys() }   
                 </ul>
                  <Link className="float-right mt-5 btn btn-success" to={`/project/${this.state.projectId}/keys/new`} >Add Key</Link>
