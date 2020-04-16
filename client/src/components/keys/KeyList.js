@@ -11,7 +11,6 @@ class KeyList extends React.Component {
         return axios.get(`/api/keys/${this.state.projectId}`)
         .then(res => {
             this.setState({ keys: res.data});
-            console.log(res.data)
         });
     }
 
@@ -36,7 +35,7 @@ class KeyList extends React.Component {
         const keys = this.state.keys;
         return keys.reverse().map(key => {
             return(
-                <li key={key._id} id="key-list" className=" list-group-item"> <i className="fas fa-key mr-2"></i>{key.name}
+                <li key={key._id} id="key-list" className=" list-group-item overflow-auto"> <i className="fas fa-key mr-2"></i>{key.name}
                 <p className="mt-3 text-muted">  {key.key}</p>
                 <button
                     type="submit" 

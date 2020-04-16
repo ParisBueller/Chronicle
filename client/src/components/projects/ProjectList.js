@@ -26,8 +26,8 @@ class ProjectList extends React.Component {
             return(               
                 <div key={project._id} className="card mb-3" >
                     <div className="row no-gutters">
-                        <div className="m-auto col-md-4">
-                            <i className="ml-5 fas fa-project-diagram fa-3x"></i>
+                        <div className="m-auto col-md-3">
+                            <i className="ml-5 mt-3 fas fa-project-diagram fa-2x"></i>
                         </div>
                         <div className="col-md-8">
                             <div className="card-body">
